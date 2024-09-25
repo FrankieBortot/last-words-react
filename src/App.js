@@ -1,40 +1,107 @@
 import './App.css';
-import {content} from './conversations/intro.js';
+import {intro} from './conversations/intro.js';
 
 
 function App() {
+
+  const displaySections = intro.map((section) => 
+    <Section sectionContent={section} /> )
+
   return (
     <div className="App">
-     
-      <Section content={content} />
+     {displaySections}
     </div>
   );
 }
 
-function Section({content}) {
-  if (content.type === "e-mail") {
-    return <EMail content={content} />
+function Section({sectionContent}) {
+  
+  function SectionHeader ({title}) {
+    return <div className="section-header">{title}</div>
+  }
+
+  if (sectionContent.type === "e-mail") {
+    return (<>
+    <SectionHeader title={sectionContent.title}/>
+    <EMail emailContent={sectionContent} />
+    </>)
   }
   
-  if ((content.type === "liveTalk")) {
-    return <LiveTalk content={content} />
+  if ((sectionContent.type === "liveTalk")) {
+    return (<>
+      <SectionHeader title={sectionContent.title}/>
+      <LiveTalk talkContent={sectionContent} />
+      </>)
   }
 
-  if ((content.type === "textMessages")) {
-    return <TextMessages content={content} />
+  if ((sectionContent.type === "textMessages")) {
+    return (<>
+      <SectionHeader title={sectionContent.title}/>
+      <TextMessages textContent={sectionContent} />
+      </>)
   }
+  
+}
+
+function LiveTalk({talkContent}) {
+const talkBubbles = talkContent.body.map((bubbleGroup) => {  
+  
+  if (bubbleGroup.speaker === "Frankie") {
+    
+    const lines = bubbleGroup.lines.map((line) => <TalkBubble bubbleText={line} /> );
+
+    return <div className='Frankie'>{lines}</div>
+  } else if (bubbleGroup.speaker === "Lusinda") {
+
+    const lines = bubbleGroup.lines.map((line) => <TalkBubble bubbleText={line} /> );
+
+    return <div className='Lusinda'>{lines}</div>
+  } } );
+
+  function TalkBubble ({bubbleText}) {
+    return (
+      <div className="bubble"> {bubbleText}
+      </div>
+    )
+  }
+
+  return <>{talkBubbles}</>
+}
+
+// function LiveTalk({talkContent}) {
+//   const talkBubbles = talkContent.body.map((bubbleGroup) =>
+//     {  if (bubbleGroup.speaker === "Frankie") {
+  
+//       const lines = bubbleGroup.lines.map((line) =>
+//         <TalkBubble bubbleText={line} /> );
+//        <div className='Frankie'>{bubbleGroup}</div>
+//        } else if (bubbleGroup.speaker === "Lusinda") {
+//       <div className='Lusinda'>
+//         <TalkBubble bubbleText={bubbleGroup.bubbles}/>
+//       </div> 
+//       } 
+//     }
+//     );
+  
+//     function TalkBubble ({bubbleText}) {
+//       return (
+//         <div className="bubble">
+//           {bubbleText}
+//         </div>
+//       )
+//     }
+  
+//     return <>{talkBubbles}</>
+//   }
+
+function TextMessages() {
 
 }
 
-function LiveTalk() {
 
-}
-
-
-
-function EMail({content}) {
-  const emailBody = content.body.map((line) => 
-  <p>{line}</p>);
+function EMail({emailContent}) {
+  // const emailBody = emailContent.body.map((line) => 
+  // <p>{line}</p>);
 
   function EMailHeader () {
 
@@ -42,21 +109,30 @@ function EMail({content}) {
 
   function EMailBody ({attachment}, {body}) {
     
-    return <>{body}</>;
+    return (
+    <>
+    <div>{attachment}</div>
+    <div>{body}</div>
+    </>
+    )
   }
 
   return (
     <div>
       <EMailHeader />
-      <EMailBody attachment={content.attachment} body={emailBody} />
-
+      <EMailBody attachment={emailContent.attachment} body={emailContent.body} />
     </div>
   )
   
 }
 
-function TextMessages() {
+// function EMail({content}) {
+//   const emailBody = content.body.map((line) => 
+//   <p>{line}</p>);
 
-}
+//   return <>{emailBody}</>;
+// }
+
+
 
 export default App;
