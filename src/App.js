@@ -27,23 +27,33 @@ function Section({sectionContent}) {
   const mainContent = (
     sectionContent.type === "live-talk" ? <LiveTalk className="live-talk" talkContent={sectionContent} />:
     sectionContent.type === "text-messages" ? <TextMessages className="text-messages" textContent={sectionContent} />:
-    <EMail className="e-mail" emailContent={sectionContent} />
+    sectionContent.type === "e-mail" ? <EMail className="e-mail" emailContent={sectionContent} />:
+    "this will be the title"
   )
+
+  const actions = sectionContent.actions?.map((action) => {
+    return (
+    <>
+      <button>{action.main}</button>
+      <p>{action.description}</p>
+    </>
+    )
+  }) 
 
   return (
     <div className="section">
       <SectionHeader type={sectionContent.type} title={sectionContent.title} />
       {mainContent}
-      <button>{sectionContent.action}</button>
+      {actions}
     </div>
   )
   
 }
 
 
-function TalkBubble ({bubbleText}) {
+function TalkBubble ({bubbleText, speaker}) {
   return (
-    <div className="bubble"> {bubbleText}
+    <div className={"bubble " + speaker}> {bubbleText}
     </div>
   )
 }
@@ -52,7 +62,7 @@ function LiveTalk({talkContent}) {
 
   const conversation = talkContent.body.map((bubbleGroup) => {  
 
-    const lines = bubbleGroup.lines.map((line) => <TalkBubble bubbleText={line} /> );
+    const lines = bubbleGroup.lines.map((line) => <TalkBubble bubbleText={line} speaker={bubbleGroup.speaker}/> );
 
     return (
       <div className="live-talk">
