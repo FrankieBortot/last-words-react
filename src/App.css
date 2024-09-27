@@ -14,3 +14,29 @@
     display: block;
     padding: 8px
 }
+
+.section {
+    background-color: darkgrey;
+    padding: 8px;
+    margin-top: 8px
+}
+
+.section-header {
+    margin: 2px
+}
+
+.text-messages {
+    border: 2px solid blue ;
+    padding: 4px;
+    font-size: 24px
+}
+
+.e-mail {
+    border: 2px solid red ;
+    padding: 4px;
+}
+
+.live-talk {
+    border: 2px solid purple ;
+    padding: 4px;
+}
