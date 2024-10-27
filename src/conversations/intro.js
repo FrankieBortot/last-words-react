@@ -1,4 +1,4 @@
-export const intro = [ 
+export const content = [ 
     {
     "type": "meta",
     "theme": "light",
@@ -140,4 +140,6 @@ export const intro = [
         }
         } 
     ]}
-]
+];
+
+export default content;
