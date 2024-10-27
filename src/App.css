@@ -40,3 +40,26 @@
     border: 2px solid purple ;
     padding: 4px;
 }
+
+.visible {
+    display: block
+}
+
+.invisible {
+    display: none
+}
+
+/* questi sono i tre button principali */
+
+.choose-your-way {
+    padding: 8px;
+    margin-top: 8px
+}
+
+.open-next {
+    background-color: darksalmon;
+}
+
+.go-to-next-chapter {
+    background-color: greenyellow
+}

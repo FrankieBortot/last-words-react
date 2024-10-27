@@ -1,10 +1,21 @@
 export const intro = [ 
     {
-    // "actions": []
+    "type": "meta",
+    "theme": "light",
+    }, 
+
+    { 
+    "type": "intro",
+    "id": "part-1",
+    "isVisible": true,
+    "title": "Last Words",
+    "subtitle": "Un racconto interattivo di vita, di morte e di altre sciocchezze"
     },
 
     {
     "title": "EMAIL",
+    "id": "part-2",
+    "isVisible": true,
     "type": "e-mail",
     "sender": "Lucinda Demàr",
     "receiver": "Frankie",
@@ -17,12 +28,18 @@ export const intro = [
         "firma"
     ],
     "actions": [{
-        "main": "Prendi appunti"
+        "type": "open-next",
+        "copy": {
+            "main": "Vai al nuovo capitolo",
+            "description": ""
+        }
     }]
     },
 
     {
     "title": "LIVETALK",
+    "id": "part-3",
+    "isVisible": true,
     "type": "live-talk",
     "body": [ { 
         "speaker": "Frankie",
@@ -40,15 +57,25 @@ export const intro = [
         }
     ],
     "actions": [{
-        "main": "Prendi appunti"
+        "type": "open-next",
+        "copy": {
+            "main": "Apri la prossima sezione",
+            "description": "interessante!"
+        }
         },
         {
-        "main": "Prendi appunti"
+        "type": "open-next",
+        "copy": {
+            "main": "Apri la prossima sezione",
+            "description": "interessante!"
+        }
         } ]
     },
 
     {
     "title": "LIVETALK",
+    "id": "part-4",
+    "isVisible": false,
     "type": "live-talk",
     "body": [ { 
         "speaker": "Frankie",
@@ -66,13 +93,21 @@ export const intro = [
         }
     ],
     "actions": [{
-        "main": "Prendi appunti",
-        "description": "interessante!"
+        "type": "open-next",
+        "sections-opened": [
+        
+        ],
+        "copy": {
+            "main": "Apri la prossima sezione",
+            "description": "interessante!"
+        }
     }]
     },
 
     {
     "title": "TEXTMESSAGE",
+    "id": "part-5",
+    "isVisible": true,
     "type": "text-messages",
     "isOnline": "true",
     "body": [ { 
@@ -90,12 +125,19 @@ export const intro = [
         }
     ],
     "actions": [{
-        "main": "Prendi appunti",
-        "description": "interessante!"
-    }]
-    }
-
-
+        "type": "choose-your-way",
+        "link": "https://google.com",
+        "copy": {
+            "main": "Vai al nuovo capitolo",
+            "description": "interessante!"
+        },
+        }, {
+        "type": "go-to-next-chapter",
+        "link": "https://google.com",
+        "copy": {
+            "main": "Vai al nuovo capitolo",
+            "description": "interessante!"
+        }
+        } 
+    ]}
 ]
-    
-

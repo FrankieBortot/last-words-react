@@ -3,20 +3,34 @@ import {intro} from './conversations/intro.js';
 
 function App() {
 
-  const displaySections = intro.map((section) => 
-    <Section sectionContent={section} /> )
+  const displaySections = intro.map((section, sectionIndex) => 
+    <Section 
+      sectionContent={section} 
+      key={sectionIndex} 
+      isVisible={section.isVisible}
+      /> 
+  )
 
   return (
-    <div className="App">
+    <div className={"App " + intro[0].theme}>
      {displaySections}
     </div>
   );
 }
 
 
-function Section({sectionContent}) {
+function Section({sectionContent, isVisible}) {
+
+  if (sectionContent.type === "meta") {
+    return null
+  }
   
   function SectionHeader ({type, title}) {
+    
+    if (type === "intro") {
+      return null
+    }
+
     return (
       <div className={"section-header " + type}>
         {title}
@@ -28,23 +42,25 @@ function Section({sectionContent}) {
     sectionContent.type === "live-talk" ? <LiveTalk className="live-talk" talkContent={sectionContent} />:
     sectionContent.type === "text-messages" ? <TextMessages className="text-messages" textContent={sectionContent} />:
     sectionContent.type === "e-mail" ? <EMail className="e-mail" emailContent={sectionContent} />:
-    "this will be the title"
+    sectionContent.type === "intro" ? <Intro className="intro" introContent={sectionContent} />:
+    "this will be the main content"
   )
 
   const actions = sectionContent.actions?.map((action) => {
-    return (
-    <>
-      <button>{action.main}</button>
-      <p>{action.description}</p>
-    </>
+    return (   
+      <ButtonAction action={action} />
     )
   }) 
 
+  const isVisibleByDefault = (isVisible ? "visible" : "invisible")
+
   return (
-    <div className="section">
+    <div className={"section " + isVisibleByDefault}>
       <SectionHeader type={sectionContent.type} title={sectionContent.title} />
       {mainContent}
-      {actions}
+      <ActionArea>
+        {actions}
+      </ActionArea>
     </div>
   )
   
@@ -54,6 +70,26 @@ function Section({sectionContent}) {
 function TalkBubble ({bubbleText, speaker}) {
   return (
     <div className={"bubble " + speaker}> {bubbleText}
+    </div>
+  )
+}
+
+function ButtonAction({action}) {
+
+  return (
+    <>
+    <button className={action.type}>
+      <a href={action.link}>{action.copy.main}</a>
+    </button>
+    <p>{action.copy.description}</p>
+    </>
+  )
+}
+
+function ActionArea({children}) {
+  return (
+    <div className='action-area'>
+      {children}
     </div>
   )
 }
@@ -134,6 +170,18 @@ function EMail({emailContent}) {
   )
 }
 
+function Intro({introContent}) {
+  return (
+    <div className='intro'>
+      <h1>
+        {introContent.title}
+      </h1>
+      <h2>
+        {introContent.subtitle}
+      </h2>
+    </div>
+  )
+}
 
 
 export default App;
