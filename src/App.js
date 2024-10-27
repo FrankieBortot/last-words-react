@@ -1,9 +1,8 @@
 import './App.css';
-import {intro} from './conversations/intro.js';
 
-function App() {
+export default function Chapter({data}) {
 
-  const displaySections = intro.map((section, sectionIndex) => 
+  const displaySections = data.map((section, sectionIndex) => 
     <Section 
       sectionContent={section} 
       key={sectionIndex} 
@@ -12,7 +11,7 @@ function App() {
   )
 
   return (
-    <div className={"App " + intro[0].theme}>
+    <div className={"chapter " + data[0].theme}>
      {displaySections}
     </div>
   );
@@ -112,6 +111,7 @@ function LiveTalk({talkContent}) {
 
 function TextMessages({textContent}) {
 
+  // eslint-disable-next-line array-callback-return
   const conversation = textContent.body.map((bubbleGroup) => {  
     
     if (bubbleGroup.speaker === "Frankie") {
@@ -184,4 +184,3 @@ function Intro({introContent}) {
 }
 
 
-export default App;
