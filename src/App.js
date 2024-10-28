@@ -1,5 +1,6 @@
 import './App.css';
 import { Link} from "react-router-dom";
+import {Paperclip} from "@phosphor-icons/react";
 
 export default function Chapter({data}) {
 
@@ -159,10 +160,13 @@ function EMail({emailContent}) {
     )
   }
 
-  function EMailBody ({attachment, body}) {   
+  function EMailBody ({attachment, body}) { 
+    
+    const attachedToEmail = (attachment ? <div className='attachment'><Paperclip size={16} weight="duotone" /> {attachment}</div> : null);
+
     return (
       <>
-      {attachment}
+      {attachedToEmail}
       {body}
       </>
     )
