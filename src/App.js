@@ -1,4 +1,5 @@
 import './App.css';
+import { Link} from "react-router-dom";
 
 export default function Chapter({data}) {
 
@@ -42,6 +43,7 @@ function Section({sectionContent, isVisible}) {
     sectionContent.type === "text-messages" ? <TextMessages className="text-messages" textContent={sectionContent} />:
     sectionContent.type === "e-mail" ? <EMail className="e-mail" emailContent={sectionContent} />:
     sectionContent.type === "intro" ? <Intro className="intro" introContent={sectionContent} />:
+    sectionContent.type === "narration" ? <Narration className="narration" introContent={sectionContent} />:
     "this will be the main content"
   )
 
@@ -78,7 +80,7 @@ function ButtonAction({action}) {
   return (
     <>
     <button className={action.type}>
-      <a href={action.link}>{action.copy.main}</a>
+      <Link to={action.link}>{action.copy.main}</Link>
     </button>
     <p>{action.copy.description}</p>
     </>
@@ -91,6 +93,10 @@ function ActionArea({children}) {
       {children}
     </div>
   )
+}
+
+function Narration({narrativeContent}) {
+  return null
 }
 
 function LiveTalk({talkContent}) {

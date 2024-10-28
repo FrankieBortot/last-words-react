@@ -1,4 +1,4 @@
-export const january = [ 
+export const february = [ 
     {
     "type": "meta",
     "theme": "light",
@@ -8,7 +8,7 @@ export const january = [
     "type": "intro",
     "id": "part-1",
     "isVisible": true,
-    "title": "CAPITOLO 1",
-    "subtitle": "Gennaio"
+    "title": "CAPITOLO 2",
+    "subtitle": "Febbraio"
     },
 ]

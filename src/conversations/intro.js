@@ -1,4 +1,4 @@
-export const content = [ 
+export const intro = [ 
     {
     "type": "meta",
     "theme": "light",
@@ -126,20 +126,18 @@ export const content = [
     ],
     "actions": [{
         "type": "choose-your-way",
-        "link": "https://google.com",
+        "link": "/january",
         "copy": {
-            "main": "Vai al nuovo capitolo",
+            "main": "Vai a Gennaio",
             "description": "interessante!"
         },
         }, {
         "type": "go-to-next-chapter",
-        "link": "https://google.com",
+        "link": "/february",
         "copy": {
-            "main": "Vai al nuovo capitolo",
+            "main": "Vai a Febbraio",
             "description": "interessante!"
         }
         } 
     ]}
 ];
-
-export default content;
