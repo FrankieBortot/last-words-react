@@ -1,6 +1,6 @@
 import './App.css';
-import { Link} from "react-router-dom";
-import {Paperclip} from "@phosphor-icons/react";
+import {Link} from "react-router-dom";
+import * as pi from "@phosphor-icons/react";
 
 export default function Chapter({data}) {
 
@@ -27,8 +27,12 @@ function Section({sectionContent, isVisible}) {
   }
   
   function SectionHeader ({type, title}) {
+
+    const sectionHidingTitle = ["intro", "narration"]
+
+    const titleHidden = (sectionHidingTitle.includes(type) ? true : false);
     
-    if (type === "intro") {
+    if (titleHidden) {
       return null
     }
 
@@ -44,7 +48,7 @@ function Section({sectionContent, isVisible}) {
     sectionContent.type === "text-messages" ? <TextMessages className="text-messages" textContent={sectionContent} />:
     sectionContent.type === "e-mail" ? <EMail className="e-mail" emailContent={sectionContent} />:
     sectionContent.type === "intro" ? <Intro className="intro" introContent={sectionContent} />:
-    sectionContent.type === "narration" ? <Narration className="narration" introContent={sectionContent} />:
+    sectionContent.type === "narration" ? <Narration className="narration" narrativeContent={sectionContent} />:
     "this will be the main content"
   )
 
@@ -68,10 +72,18 @@ function Section({sectionContent, isVisible}) {
   
 }
 
+function BubbleGroup ({words, speaker}) {
+  const lines = words.lines.map((line) => <TalkBubble bubbleText={line} speaker={speaker} /> );
+      return (
+        <div className={"bubble-group " + speaker}>
+          {lines}
+        </div>
+      )
+}
 
 function TalkBubble ({bubbleText, speaker}) {
   return (
-    <div className={"bubble " + speaker}> {bubbleText}
+    <div className="bubble"> {bubbleText}
     </div>
   )
 }
@@ -96,22 +108,13 @@ function ActionArea({children}) {
   )
 }
 
-function Narration({narrativeContent}) {
-  return null
-}
-
 function LiveTalk({talkContent}) {
 
-  const conversation = talkContent.body.map((bubbleGroup) => {  
-
-    const lines = bubbleGroup.lines.map((line) => <TalkBubble bubbleText={line} speaker={bubbleGroup.speaker}/> );
-
+  const conversation = talkContent.body.map((bubbleGroup) => {   
     return (
-      <div className="live-talk">
-        {lines}
-      </div> 
-    )
-  } )
+      <BubbleGroup words={bubbleGroup} speaker={bubbleGroup.speaker} />
+    ) 
+  });
   
   return <>{conversation}</>
 }
@@ -119,26 +122,11 @@ function LiveTalk({talkContent}) {
 function TextMessages({textContent}) {
 
   // eslint-disable-next-line array-callback-return
-  const conversation = textContent.body.map((bubbleGroup) => {  
-    
-    if (bubbleGroup.speaker === "Frankie") {
-      const lines = bubbleGroup.lines.map((line) => <TalkBubble bubbleText={line} /> );
-      return (
-        <div className='text-messages Frankie'>
-          {lines}
-        </div>
-      )
-
-    } else if (bubbleGroup.speaker === "Lusinda") {
-      const lines = bubbleGroup.lines.map((line) => <TalkBubble bubbleText={line} /> );
-      return (
-        <div className='text-messages Lusinda'>
-          {lines}
-        </div>
-      )
-
-    } 
-  } );
+  const conversation = textContent.body.map((bubbleGroup) => {   
+    return (
+      <BubbleGroup words={bubbleGroup} speaker={bubbleGroup.speaker} />
+    ) 
+  });
 
   return <>{conversation}</>
 }
@@ -162,12 +150,14 @@ function EMail({emailContent}) {
 
   function EMailBody ({attachment, body}) { 
     
-    const attachedToEmail = (attachment ? <div className='attachment'><Paperclip size={16} weight="duotone" /> {attachment}</div> : null);
+    const attachedToEmail = (attachment ? <div className='attachment'><pi.Paperclip size={16} weight="duotone" /> {attachment}</div> : null);
 
     return (
       <>
-      {attachedToEmail}
-      {body}
+        {attachedToEmail}
+        <div className='email-body'>
+          {body}
+        </div>
       </>
     )
   }
@@ -193,4 +183,13 @@ function Intro({introContent}) {
   )
 }
 
+function Narration({narrativeContent}) {
+  return (
+    <div className='narration'>
+      <h1>
+        {narrativeContent.title}
+      </h1>
+    </div>
+  )
+}
 

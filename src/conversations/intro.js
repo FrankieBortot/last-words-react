@@ -12,6 +12,13 @@ export const intro = [
     "subtitle": "Un racconto interattivo di vita, di morte e di altre sciocchezze"
     },
 
+    { 
+    "type": "narration",
+    "id": "part-n",
+    "isVisible": true,
+    "title": "È andata così"
+    },
+
     {
     "title": "EMAIL",
     "id": "part-2",

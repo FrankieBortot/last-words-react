@@ -1,11 +1,11 @@
 .Frankie {
     color: blue;
-    padding: 12px;
+    border: 2px solid lightskyblue
 }
 
 .Lusinda {
     color: red;
-    padding: 12px;
+    border: 2px solid lightcoral
 }
 
 .bubble {
@@ -13,6 +13,10 @@
     background-color: beige;
     display: block;
     padding: 8px
+}
+
+.narration {
+    color: saddlebrown
 }
 
 .section {
