@@ -35,7 +35,8 @@ export const intro = [
         "firma"
     ],
     "actions": [{
-        "type": "open-next",
+        "type": "open-section",
+        "sectionsOpened": "test",
         "copy": {
             "main": "Vai al nuovo capitolo",
             "description": ""
@@ -64,14 +65,16 @@ export const intro = [
         }
     ],
     "actions": [{
-        "type": "open-next",
+        "type": "open-section",
+        "sectionsOpened": 5,
         "copy": {
             "main": "Apri la prossima sezione",
             "description": "interessante!"
         }
         },
         {
-        "type": "open-next",
+        "type": "open-section",
+        "sectionsOpened": 6,
         "copy": {
             "main": "Apri la prossima sezione",
             "description": "interessante!"
@@ -100,10 +103,8 @@ export const intro = [
         }
     ],
     "actions": [{
-        "type": "open-next",
-        "sections-opened": [
-        
-        ],
+        "type": "open-section",
+        "sectionsOpened": "test",
         "copy": {
             "main": "Apri la prossima sezione",
             "description": "interessante!"
@@ -132,15 +133,15 @@ export const intro = [
         }
     ],
     "actions": [{
-        "type": "choose-your-way",
-        "link": "/january",
+        "type": "go-to-chapter",
+        "link": "january",
         "copy": {
             "main": "Vai a Gennaio",
             "description": "interessante!"
         },
         }, {
-        "type": "go-to-next-chapter",
-        "link": "/february",
+        "type": "go-to-chapter",
+        "link": "february",
         "copy": {
             "main": "Vai a Febbraio",
             "description": "interessante!"

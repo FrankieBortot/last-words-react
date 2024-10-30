@@ -1,21 +1,41 @@
 import './App.css';
 import {Link} from "react-router-dom";
 import * as pi from "@phosphor-icons/react";
+import { useState } from 'react';
 
 export default function Chapter({data}) {
+
+  const [sectionVisibility, setSectionVisibility] = useState(data.map((section, sectionIndex) => section.isVisible));
+
+  function handleVisibility(sectionIndex) {
+    const nextVisibility = [...sectionVisibility];
+    nextVisibility[sectionIndex] = true;
+    setSectionVisibility(nextVisibility)
+  }
+
+  function testAction() {
+    alert("Funziona")
+  }
 
   const displaySections = data.map((section, sectionIndex) => 
     <Section 
       sectionContent={section} 
       key={sectionIndex} 
-      isVisible={section.isVisible}
+      isVisible={sectionVisibility[sectionIndex]}
       /> 
+  )
+
+  const countSections = data.map((section, sectionIndex) =>
+    section.isVisible ? <div>{sectionIndex + " 1"}</div> :
+    <div>{sectionIndex + " 0"}</div>
   )
 
   return (
     <div className={"chapter " + data[0].theme}>
-     {displaySections}
+      {countSections}
+      {displaySections}
     </div>
+    
   );
 }
 
@@ -52,16 +72,16 @@ function Section({sectionContent, isVisible}) {
     "this will be the main content"
   )
 
-  const actions = sectionContent.actions?.map((action) => {
+  const actions = sectionContent.actions?.map((action, actionIndex) => {
     return (   
-      <ButtonAction action={action} />
+      <ButtonAction action={action} key={actionIndex} />
     )
   }) 
 
   const isVisibleByDefault = (isVisible ? "visible" : "invisible")
 
   return (
-    <div className={"section " + isVisibleByDefault}>
+    <div className={"section " + isVisibleByDefault} id={sectionContent.id} >
       <SectionHeader type={sectionContent.type} title={sectionContent.title} />
       {mainContent}
       <ActionArea>
@@ -72,8 +92,99 @@ function Section({sectionContent, isVisible}) {
   
 }
 
+function ButtonAction({action}) {
+
+  const buttonType = (
+    action.type === "go-to-chapter" ? 
+      <button>
+        <Link to={action.link}>{action.copy.main}</Link>
+      </button> :
+
+    action.type === "open-section" ? 
+      <button onClick={() => (action.sectionsOpened)}>
+        {action.copy.main}
+      </button> :
+    
+    null
+  )
+
+  function openSection ({object}) {
+   alert(object)
+  }
+  
+  return (
+    <>
+    {buttonType}
+    <p>{action.copy.description}</p>
+    </>
+  )
+}
+
+function ActionArea({children}) {
+  return (
+    <div className='action-area'>
+      {children}
+    </div>
+  )
+}
+
+
+function Intro({introContent}) {
+  return (
+    <div className='intro'>
+      <h1>
+        {introContent.title}
+      </h1>
+      <h2>
+        {introContent.subtitle}
+      </h2>
+    </div>
+  )
+}
+
+function Narration({narrativeContent}) {
+  return (
+    <div className='narration'>
+      <h1>
+        {narrativeContent.title}
+      </h1>
+    </div>
+  )
+}
+
+function LiveTalk({talkContent}) {
+
+  const conversation = talkContent.body.map((bubbleGroup, bubbleGroupIndex) => {   
+    return (
+      <BubbleGroup 
+        words={bubbleGroup} 
+        speaker={bubbleGroup.speaker} 
+        key={bubbleGroupIndex}
+      />
+    ) 
+  });
+  
+  return <>{conversation}</>
+}
+
+function TextMessages({textContent}) {
+
+  // eslint-disable-next-line array-callback-return
+  const conversation = textContent.body.map((bubbleGroup, bubbleGroupIndex) => {   
+    return (
+      <BubbleGroup 
+        words={bubbleGroup} 
+        speaker={bubbleGroup.speaker} 
+        key={bubbleGroupIndex}
+      />
+    ) 
+  });
+
+  return <>{conversation}</>
+}
+
 function BubbleGroup ({words, speaker}) {
-  const lines = words.lines.map((line) => <TalkBubble bubbleText={line} speaker={speaker} /> );
+  const lines = words.lines.map((line, lineIndex) => <TalkBubble bubbleText={line} speaker={speaker} key={lineIndex} /> );
       return (
         <div className={"bubble-group " + speaker}>
           {lines}
@@ -88,54 +199,11 @@ function TalkBubble ({bubbleText, speaker}) {
   )
 }
 
-function ButtonAction({action}) {
-
-  return (
-    <>
-    <button className={action.type}>
-      <Link to={action.link}>{action.copy.main}</Link>
-    </button>
-    <p>{action.copy.description}</p>
-    </>
-  )
-}
-
-function ActionArea({children}) {
-  return (
-    <div className='action-area'>
-      {children}
-    </div>
-  )
-}
-
-function LiveTalk({talkContent}) {
-
-  const conversation = talkContent.body.map((bubbleGroup) => {   
-    return (
-      <BubbleGroup words={bubbleGroup} speaker={bubbleGroup.speaker} />
-    ) 
-  });
-  
-  return <>{conversation}</>
-}
-
-function TextMessages({textContent}) {
-
-  // eslint-disable-next-line array-callback-return
-  const conversation = textContent.body.map((bubbleGroup) => {   
-    return (
-      <BubbleGroup words={bubbleGroup} speaker={bubbleGroup.speaker} />
-    ) 
-  });
-
-  return <>{conversation}</>
-}
-
 
 function EMail({emailContent}) {
 
-  const emailBody = emailContent.body.map((line) => 
-  <p>{line}</p>);
+  const emailBody = emailContent.body.map((line, lineIndex) => 
+  <p key={lineIndex}>{line}</p>);
 
   function EMailHeader ({headerContent}) {
 
@@ -170,26 +238,4 @@ function EMail({emailContent}) {
   )
 }
 
-function Intro({introContent}) {
-  return (
-    <div className='intro'>
-      <h1>
-        {introContent.title}
-      </h1>
-      <h2>
-        {introContent.subtitle}
-      </h2>
-    </div>
-  )
-}
-
-function Narration({narrativeContent}) {
-  return (
-    <div className='narration'>
-      <h1>
-        {narrativeContent.title}
-      </h1>
-    </div>
-  )
-}
 

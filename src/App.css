@@ -8,6 +8,10 @@
     border: 2px solid lightcoral
 }
 
+/* .section {
+    min-height: 100vh;
+} */
+
 .bubble {
     margin: 2px;
     background-color: beige;
@@ -60,10 +64,10 @@
     margin-top: 8px
 }
 
-.open-next {
+.open-section {
     background-color: darksalmon;
 }
 
-.go-to-next-chapter {
+.go-to-chapter {
     background-color: greenyellow
 }
