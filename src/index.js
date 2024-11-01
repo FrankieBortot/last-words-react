@@ -15,7 +15,13 @@ export default function App() {
         <Route path="/" >
           <Route index element={<Intro />} />
           <Route path="january" element={<January />} />   
-          <Route path="february" element={<February />} />      
+          <Route path="february" element={<February />} />   
+          <Route path="march" />   
+          <Route path="april"  />
+          <Route path="may"  />
+          <Route path="june"  />
+          <Route path="april"  />
+
         </Route>
       </Routes>
     </BrowserRouter>

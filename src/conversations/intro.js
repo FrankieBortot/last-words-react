@@ -7,7 +7,7 @@ export const intro = [
     { 
     "type": "intro",
     "id": "part-1",
-    "isVisible": true,
+    "isVisible": false,
     "title": "Last Words",
     "subtitle": "Un racconto interattivo di vita, di morte e di altre sciocchezze"
     },
@@ -15,7 +15,7 @@ export const intro = [
     { 
     "type": "narration",
     "id": "part-n",
-    "isVisible": true,
+    "isVisible": false,
     "title": "È andata così"
     },
 
@@ -66,17 +66,17 @@ export const intro = [
     ],
     "actions": [{
         "type": "open-section",
-        "sectionsOpened": 5,
+        "sectionsOpened": [5],
         "copy": {
-            "main": "Apri la prossima sezione",
+            "main": "Apri la 5",
             "description": "interessante!"
         }
         },
         {
         "type": "open-section",
-        "sectionsOpened": 6,
+        "sectionsOpened": [1, 2],
         "copy": {
-            "main": "Apri la prossima sezione",
+            "main": "Apri la sez 1 e 2",
             "description": "interessante!"
         }
         } ]
@@ -104,7 +104,7 @@ export const intro = [
     ],
     "actions": [{
         "type": "open-section",
-        "sectionsOpened": "test",
+        "sectionsOpened": [1],
         "copy": {
             "main": "Apri la prossima sezione",
             "description": "interessante!"

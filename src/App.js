@@ -8,9 +8,12 @@ export default function Chapter({data}) {
   const [sectionVisibility, setSectionVisibility] = useState(data.map((section, sectionIndex) => section.isVisible));
 
   function handleVisibility(sectionIndex) {
-    const nextVisibility = [...sectionVisibility];
-    nextVisibility[sectionIndex] = true;
+    const currentVisibility = [...sectionVisibility];
+    const nextVisibility = currentVisibility.map((visibility, visibilityIndex) => 
+    sectionIndex.includes(visibilityIndex) ? true : visibility
+    )
     setSectionVisibility(nextVisibility)
+    console.log(sectionVisibility)
   }
 
   function testAction() {
@@ -22,11 +25,12 @@ export default function Chapter({data}) {
       sectionContent={section} 
       key={sectionIndex} 
       isVisible={sectionVisibility[sectionIndex]}
+      sectionActions={handleVisibility}
       /> 
   )
 
-  const countSections = data.map((section, sectionIndex) =>
-    section.isVisible ? <div>{sectionIndex + " 1"}</div> :
+  const countSections = sectionVisibility.map((section, sectionIndex) =>
+    section ? <div>{sectionIndex + " 1"}</div> :
     <div>{sectionIndex + " 0"}</div>
   )
 
@@ -40,7 +44,7 @@ export default function Chapter({data}) {
 }
 
 
-function Section({sectionContent, isVisible}) {
+function Section({sectionContent, isVisible, sectionActions}) {
 
   if (sectionContent.type === "meta") {
     return null
@@ -74,7 +78,7 @@ function Section({sectionContent, isVisible}) {
 
   const actions = sectionContent.actions?.map((action, actionIndex) => {
     return (   
-      <ButtonAction action={action} key={actionIndex} />
+      <ButtonAction action={action} onInteraction={sectionActions} key={actionIndex} sectionsOpened={action.sectionsOpened}/>
     )
   }) 
 
@@ -84,15 +88,15 @@ function Section({sectionContent, isVisible}) {
     <div className={"section " + isVisibleByDefault} id={sectionContent.id} >
       <SectionHeader type={sectionContent.type} title={sectionContent.title} />
       {mainContent}
-      <ActionArea>
+      <div className='action-area'>
         {actions}
-      </ActionArea>
+      </div>
     </div>
   )
   
 }
 
-function ButtonAction({action}) {
+function ButtonAction({action, onInteraction, sectionsOpened}) {
 
   const buttonType = (
     action.type === "go-to-chapter" ? 
@@ -101,30 +105,18 @@ function ButtonAction({action}) {
       </button> :
 
     action.type === "open-section" ? 
-      <button onClick={() => (action.sectionsOpened)}>
-        {action.copy.main}
+      <button onClick={() => onInteraction(sectionsOpened)}>
+        <a href={"#part-" + sectionsOpened[0]}>{action.copy.main} TEST AZIONE</a>
       </button> :
     
     null
   )
-
-  function openSection ({object}) {
-   alert(object)
-  }
   
   return (
     <>
     {buttonType}
     <p>{action.copy.description}</p>
     </>
-  )
-}
-
-function ActionArea({children}) {
-  return (
-    <div className='action-area'>
-      {children}
-    </div>
   )
 }
 
@@ -238,4 +230,8 @@ function EMail({emailContent}) {
   )
 }
 
+
+
+// array = [0,1,0,0,0,0,1,1,0,1]
+// indexes = [2,4,5]
 
