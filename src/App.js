@@ -10,7 +10,7 @@ export default function Chapter({data}) {
   function handleVisibility(sectionIndex) {
     const currentVisibility = [...sectionVisibility];
     const nextVisibility = currentVisibility.map((visibility, visibilityIndex) => 
-    sectionIndex.includes(visibilityIndex) ? true : visibility
+      sectionIndex.includes(visibilityIndex) ? true : visibility
     )
     setSectionVisibility(nextVisibility)
     console.log(sectionVisibility)
