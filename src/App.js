@@ -3,37 +3,43 @@ import {Link} from "react-router-dom";
 import * as pi from "@phosphor-icons/react";
 import { useState } from 'react';
 
+// questo è il contenitore principale, il Chapter, che può avere più Sections
 export default function Chapter({data}) {
 
+  // copio il valore di ogni isVisible in un array di stati,
+  // così ho una variabile in cui è gestita la visibilità di ogni sezione
   const [sectionVisibility, setSectionVisibility] = useState(data.map((section, sectionIndex) => section.isVisible));
 
+  // qui rendo visibili le sezioni: la funzione riceve un array di indici da mettere a true
+  // gli indici li riceve poi direttamente dai dati della sezione (section.actions.sectionsOpened)
   function handleVisibility(sectionIndex) {
     const currentVisibility = [...sectionVisibility];
     const nextVisibility = currentVisibility.map((visibility, visibilityIndex) => 
       sectionIndex.includes(visibilityIndex) ? true : visibility
     )
     setSectionVisibility(nextVisibility)
-    console.log(sectionVisibility)
   }
 
-  function testAction() {
-    alert("Funziona")
-  }
-
+  // questa è la funzione principale che stampa tutte le sezioni
   const displaySections = data.map((section, sectionIndex) => 
     <Section 
       sectionContent={section} 
-      key={sectionIndex} 
-      isVisible={sectionVisibility[sectionIndex]}
-      sectionActions={handleVisibility}
+      key={sectionIndex}
+      isVisible={sectionVisibility[sectionIndex]} // valore preso direttamente dall'array di stati
+      sectionAction={handleVisibility} // qui viene passata alla section l'azione per rendere visibili le sezioni successive
       /> 
   )
 
+  // questa serve solo a stampare una lista delle sezioni con il rispettivo
+  // stato di visibilità: on (si vede) oppure off (non si vede)
+  // l'informazione è presa dall'array di stati SectionVisibility
   const countSections = sectionVisibility.map((section, sectionIndex) =>
-    section ? <div>{sectionIndex + " 1"}</div> :
-    <div>{sectionIndex + " 0"}</div>
+    section ? <div>{sectionIndex + " on"}</div> :
+    <div>{sectionIndex + " off"}</div>
   )
 
+  // il contenitore più esterno è il chapter
+  // e gli viene assegnato un tema (light o dark), preso direttamente dal json
   return (
     <div className={"chapter " + data[0].theme}>
       {countSections}
@@ -43,8 +49,9 @@ export default function Chapter({data}) {
   );
 }
 
-
-function Section({sectionContent, isVisible, sectionActions}) {
+// questa è la funzione che renderizza ogni sezione
+// prende il contenuto dal json
+function Section({sectionContent, isVisible, sectionAction}) {
 
   if (sectionContent.type === "meta") {
     return null
@@ -78,14 +85,14 @@ function Section({sectionContent, isVisible, sectionActions}) {
 
   const actions = sectionContent.actions?.map((action, actionIndex) => {
     return (   
-      <ButtonAction action={action} onInteraction={sectionActions} key={actionIndex} sectionsOpened={action.sectionsOpened}/>
+      <ButtonAction action={action} onInteraction={sectionAction} key={actionIndex} sectionsOpened={action.sectionsOpened}/>
     )
   }) 
 
   const isVisibleByDefault = (isVisible ? "visible" : "invisible")
 
   return (
-    <div className={"section " + isVisibleByDefault} id={sectionContent.id} >
+    <div className={"section " + isVisibleByDefault} id={sectionContent.index} >
       <SectionHeader type={sectionContent.type} title={sectionContent.title} />
       {mainContent}
       <div className='action-area'>
@@ -94,30 +101,6 @@ function Section({sectionContent, isVisible, sectionActions}) {
     </div>
   )
   
-}
-
-function ButtonAction({action, onInteraction, sectionsOpened}) {
-
-  const buttonType = (
-    action.type === "go-to-chapter" ? 
-      <button>
-        <Link to={action.link}>{action.copy.main}</Link>
-      </button> :
-
-    action.type === "open-section" ? 
-      <button onClick={() => onInteraction(sectionsOpened)}>
-        <a href={"#part-" + sectionsOpened[0]}>{action.copy.main} TEST AZIONE</a>
-      </button> :
-    
-    null
-  )
-  
-  return (
-    <>
-    {buttonType}
-    <p>{action.copy.description}</p>
-    </>
-  )
 }
 
 
@@ -230,8 +213,27 @@ function EMail({emailContent}) {
   )
 }
 
+function ButtonAction({action, onInteraction, sectionsOpened}) {
 
+  const button = (
+    action.type === "go-to-chapter" ? 
+      // in questo caso il button utilizza il componente Link di React-Router per reindirizzare alla route 
+      <button>
+        <Link to={action.link}>{action.copy.main}</Link> 
+      </button> :
 
-// array = [0,1,0,0,0,0,1,1,0,1]
-// indexes = [2,4,5]
-
+    action.type === "open-section" ? 
+      <button onClick={() => onInteraction(sectionsOpened)}>
+        <a href={"#" + sectionsOpened[0]}>{action.copy.main} TEST AZIONE</a>
+      </button> :
+    
+    null
+  )
+  
+  return (
+    <>
+    {button}
+    <p>{action.copy.description}</p>
+    </>
+  )
+}

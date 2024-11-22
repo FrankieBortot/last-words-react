@@ -6,7 +6,23 @@ export const intro = [
 
     { 
     "type": "intro",
-    "id": "part-1",
+    "index": 1,
+    "isVisible": true,
+    "title": "Last Words",
+    "subtitle": "Un racconto interattivo di vita, di morte e di altre sciocchezze",
+    "actions": [{
+        "type": "open-section",
+        "sectionsOpened": [2,3,4],
+        "copy": {
+            "main": "Vai al nuovo capitolo",
+            "description": ""
+        }
+    }]
+    },
+
+    { 
+    "type": "intro",
+    "index": 2,
     "isVisible": false,
     "title": "Last Words",
     "subtitle": "Un racconto interattivo di vita, di morte e di altre sciocchezze"
@@ -14,15 +30,15 @@ export const intro = [
 
     { 
     "type": "narration",
-    "id": "part-n",
+    "index": 3,
     "isVisible": false,
     "title": "È andata così"
     },
 
     {
     "title": "EMAIL",
-    "id": "part-2",
-    "isVisible": true,
+    "index": 4,
+    "isVisible": false,
     "type": "e-mail",
     "sender": "Lucinda Demàr",
     "receiver": "Frankie",
@@ -46,8 +62,8 @@ export const intro = [
 
     {
     "title": "LIVETALK",
-    "id": "part-3",
-    "isVisible": true,
+    "index": 5,
+    "isVisible": false,
     "type": "live-talk",
     "body": [ { 
         "speaker": "Frankie",
@@ -84,7 +100,7 @@ export const intro = [
 
     {
     "title": "LIVETALK",
-    "id": "part-4",
+    "index": 6,
     "isVisible": false,
     "type": "live-talk",
     "body": [ { 
@@ -114,7 +130,7 @@ export const intro = [
 
     {
     "title": "TEXTMESSAGE",
-    "id": "part-5",
+    "index": 7,
     "isVisible": true,
     "type": "text-messages",
     "isOnline": "true",
@@ -144,7 +160,13 @@ export const intro = [
         "link": "february",
         "copy": {
             "main": "Vai a Febbraio",
-            "description": "interessante!"
+        }
+        }, {
+        "type": "go-to-chapter",
+        "link": "august/a",
+        "copy": {
+            "main": "Vai ad AGOSTO A",
+            "description": "interessante! <b>vero?</b>"
         }
         } 
     ]}
