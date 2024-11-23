@@ -1,3 +1,26 @@
+html {
+    scroll-behavior: smooth;
+  }
+
+button, a {
+    border: none;
+    cursor: pointer;
+    padding: 0px;
+    outline-style: none;
+    background-color: transparent;
+}
+
+
+.light {
+    --text: #000000;
+    --background: lightskyblue; 
+}
+
+.dark {
+    --text: #ffffff;
+    --background: darkblue;
+}
+
 .Frankie {
     color: blue;
     border: 2px solid lightskyblue
@@ -24,7 +47,11 @@
 }
 
 .section {
-    background-color: darkgrey;
+    --_background: var(--background, darkgrey);
+    --_text: var(--text, white);
+
+    background-color: var(--_background);
+    color: var(--_text);
     padding: 8px;
     margin-top: 8px
 }
@@ -64,7 +91,7 @@
     margin-top: 8px
 }
 
-.open-section {
+.go-to-section {
     background-color: darksalmon;
 }
 
