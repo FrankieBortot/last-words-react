@@ -1,7 +1,7 @@
 export const decemberA = [ 
     {
     "type": "meta",
-    "theme": "light",
+    "theme": "dark",
     }, 
 
     { 

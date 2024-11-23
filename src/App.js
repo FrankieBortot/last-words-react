@@ -218,12 +218,12 @@ function ButtonAction({action, onInteraction, sectionsOpened}) {
   const button = (
     action.type === "go-to-chapter" ? 
       // in questo caso il button utilizza il componente Link di React-Router per reindirizzare alla route 
-      <button>
+      <button className={action.type}>
         <Link to={action.link}>{action.copy.main}</Link> 
       </button> :
 
-    action.type === "open-section" ? 
-      <button onClick={() => onInteraction(sectionsOpened)}>
+    action.type === "go-to-section" ? 
+      <button className={action.type} onClick={() => onInteraction(sectionsOpened)}>
         <a href={"#" + sectionsOpened[0]}>{action.copy.main} TEST AZIONE</a>
       </button> :
     

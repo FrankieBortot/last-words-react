@@ -11,7 +11,7 @@ export const intro = [
     "title": "Last Words",
     "subtitle": "Un racconto interattivo di vita, di morte e di altre sciocchezze",
     "actions": [{
-        "type": "open-section",
+        "type": "go-to-section",
         "sectionsOpened": [2,3,4],
         "copy": {
             "main": "Vai al nuovo capitolo",
@@ -51,7 +51,7 @@ export const intro = [
         "firma"
     ],
     "actions": [{
-        "type": "open-section",
+        "type": "go-to-section",
         "sectionsOpened": "test",
         "copy": {
             "main": "Vai al nuovo capitolo",
@@ -81,7 +81,7 @@ export const intro = [
         }
     ],
     "actions": [{
-        "type": "open-section",
+        "type": "go-to-section",
         "sectionsOpened": [5],
         "copy": {
             "main": "Apri la 5",
@@ -89,7 +89,7 @@ export const intro = [
         }
         },
         {
-        "type": "open-section",
+        "type": "go-to-section",
         "sectionsOpened": [1, 2],
         "copy": {
             "main": "Apri la sez 1 e 2",
@@ -119,7 +119,7 @@ export const intro = [
         }
     ],
     "actions": [{
-        "type": "open-section",
+        "type": "go-to-section",
         "sectionsOpened": [1],
         "copy": {
             "main": "Apri la prossima sezione",

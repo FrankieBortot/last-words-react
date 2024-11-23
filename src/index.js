@@ -22,7 +22,7 @@ export default function App() {
           <Route path="june" element={<script.June />} />
           <Route path="july" element={<script.July />} />
           <Route path="august/" >
-            <Route path="a" element={<script.AugustA />} />
+            <Route  path="a" element={<script.AugustA />} />
             <Route path="b" element={<script.AugustB />} />
           </Route>
           <Route path="september/" >s
