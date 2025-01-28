@@ -226,13 +226,19 @@ function ButtonAction({action, onInteraction, sectionsOpened}) {
       <button className={action.type} onClick={() => onInteraction(sectionsOpened)}>
         <a href={"#" + sectionsOpened[0]}>{action.copy.main} TEST AZIONE</a>
       </button> :
+
+    action.type === "change-language" ? 
+    // in questo caso il button utilizza il componente Link di React-Router per reindirizzare alla route eng
+    <button className={action.type}>
+      <Link to={action.link}>{action.copy.main}</Link> 
+    </button> :
     
     null
   )
   
   return (
     <>
-    {button}
+    {button }
     <p>{action.copy.description}</p>
     </>
   )

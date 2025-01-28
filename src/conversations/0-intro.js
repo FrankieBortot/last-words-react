@@ -17,6 +17,13 @@ export const intro = [
             "main": "Vai al nuovo capitolo",
             "description": ""
         }
+    }, {
+        "type": "change-language",
+        "link": "en",
+        "copy": {
+            "main": "Vai alla versione inglese",
+            "description": ""
+        }
     }]
     },
 

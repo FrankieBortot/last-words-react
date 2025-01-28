@@ -31,10 +31,6 @@ button, a {
     border: 2px solid lightcoral
 }
 
-/* .section {
-    min-height: 100vh;
-} */
-
 .bubble {
     margin: 2px;
     background-color: beige;
@@ -52,6 +48,7 @@ button, a {
 
     background-color: var(--_background);
     color: var(--_text);
+    min-height: 100vh;
     padding: 8px;
     margin-top: 8px
 }
@@ -84,11 +81,10 @@ button, a {
     display: none
 }
 
-/* questi sono i tre button principali */
+/* questi sono i button principali */
 
-.choose-your-way {
-    padding: 8px;
-    margin-top: 8px
+.change-language {
+    background-color: cyan;
 }
 
 .go-to-section {

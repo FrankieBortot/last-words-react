@@ -12,7 +12,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" >
+      <Route path="/" >
           <Route index element={<script.Intro />} />
           <Route path="january" element={<script.January />} />   
           <Route path="february" element={<script.February />} />   
